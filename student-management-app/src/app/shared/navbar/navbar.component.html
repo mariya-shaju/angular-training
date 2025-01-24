@@ -1,0 +1,28 @@
+<nav class="nav">
+  <div class="nav__main">
+    <h1 class="nav__logo">EDU-M</h1>
+    <ul class="nav__items">
+      <li class="nav__items-item">
+        <app-button [variant]="'secondary'">
+          <img src="/assets/icons/dashboard.svg" width="20" />
+          <span>Dashboard</span>
+        </app-button>
+      </li>
+      <li class="nav__items-item">
+        <app-button [variant]="'secondary'">
+          <img src="/assets/icons/add.svg" width="20" />
+          <span>Add New</span>
+        </app-button>
+      </li>
+    </ul>
+  </div>
+  <ul class="nav__userDetails">
+    <li class="nav__userDetails-name">
+      Hi,
+      <h2>User</h2>
+    </li>
+    <li class="nav__userDetails-logout">
+      <app-button>login / logout</app-button>
+    </li>
+  </ul>
+</nav>

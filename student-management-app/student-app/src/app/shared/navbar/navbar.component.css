@@ -1,0 +1,78 @@
+/* Nav container styles */
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 3%;
+    box-shadow: 0 4px 6px rgba(8, 8, 8, 0.1);
+    margin-bottom: 20px;
+    background-color: azure;
+}
+
+/* Main navigation (logo and items) */
+.nav__main {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* Logo styles */
+.nav__logo {
+    background: linear-gradient(to left, #fdbb2d, #b21f1f, #1a2a6c);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-decoration: none;
+    font-size: 24px;
+    font-weight: bold;
+}
+.nav__logo h1{
+  margin:10px ;
+}
+
+/* Navigation items (list) */
+.nav__items {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin: 0;
+    padding: 0;
+}
+
+/* Individual navigation item */
+.nav__items-item {
+    display: flex;
+    align-items: center;
+}
+
+/* User details (right section) */
+.nav__userDetails {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin: 0;
+    padding: 0;
+}
+
+/* User greeting */
+.nav__userDetails-name {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+}
+
+.nav__userDetails-name h2 {
+    font-weight: 600;
+    font-size: 16px;
+    margin: 0;
+    padding: 0;
+}
+
+/* Logout button */
+.nav__userDetails-logout {
+    display: flex;
+    align-items: center;
+}

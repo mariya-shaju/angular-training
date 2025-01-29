@@ -1,0 +1,81 @@
+<app-auth>
+  <div class="login">
+    <img src="/assets/images/logo.jpg" alt="logo" class="logo" />
+    <div class="login-details">
+      <h2 class="title">Welcome Back</h2>
+      <p class="sub-title">
+        Welcome to <b>SMS</b>, your seamless education management solution
+      </p>
+    </div>
+  </div>
+
+  <form class="loginform" [formGroup]="loginDetails" (ngSubmit)="onSubmit()">
+    <!-- Username Field -->
+    <mat-form-field class="form-field" appearance="outline">
+      <mat-label>Username</mat-label>
+      <input matInput formControlName="username" />
+      <mat-error *ngIf="loginDetails.get('username')?.hasError('required')">
+        Username is required
+      </mat-error>
+    </mat-form-field>
+    <div
+      *ngIf="
+        loginDetails.get('username')?.touched &&
+        loginDetails.get('username')?.invalid
+      "
+    >
+      <small *ngIf="loginDetails.get('username')?.errors?.['required']"
+        >Username is required.</small
+      >
+      <small *ngIf="loginDetails.get('username')?.errors?.['minlength']"
+        >Minimum 4 characters required.</small
+      >
+      <small *ngIf="loginDetails.get('username')?.errors?.['maxlength']"
+        >Maximum 20 characters allowed.</small
+      >
+    </div>
+
+    <!-- Password Field -->
+    <mat-form-field class="form-field" appearance="outline">
+      <mat-label>Password</mat-label>
+      <input
+        matInput
+        [type]="hide() ? 'password' : 'text'"
+        formControlName="password"
+      />
+      <button
+        mat-icon-button
+        matSuffix
+        (click)="clickEvent($event)"
+        [attr.aria-label]="'Hide password'"
+        [attr.aria-pressed]="hide()"
+        type="button"
+      >
+        <mat-icon>{{ hide() ? "visibility_off" : "visibility" }}</mat-icon>
+      </button>
+      <mat-error *ngIf="loginDetails.get('password')?.hasError('required')">
+        Password is required
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Submit Button -->
+    <app-button
+      [styles]="{
+        background: 'linear-gradient(to left,#061700)',
+        padding: '13px',
+        fontWeight: '600'
+      }"
+      type="submit"
+      [disabled]="loginDetails.invalid"
+    >
+      Login
+    </app-button>
+  </form>
+  <!-- <div *ngIf="errorMessage" class="response-errorMessage" class="error">
+    {{ errorMessage }}
+  </div> -->
+  <!-- Signup Link -->
+  <p class="signup">
+    Don't have an account? <a [routerLink]="['/signup']">Sign Up</a>
+  </p>
+</app-auth>

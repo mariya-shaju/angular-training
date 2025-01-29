@@ -1,0 +1,246 @@
+<app-auth>
+  <div class="signup">
+    <img src="/assets/images/logo.jpg" alt="logo" class="logo" />
+    <div class="signup-details">
+      <h2 class="title">Get Started</h2>
+      <p class="sub-title">
+        Welcome to <b>SMS</b>, your seamless education management solution
+      </p>
+    </div>
+  </div>
+  <form class="signup-form" [formGroup]="basicDetails" (ngSubmit)="onSubmit()">
+    <mat-stepper [linear]="isLinear" #stepper>
+      <mat-step>
+        <ng-template matStepLabel>Basic Info</ng-template>
+        <h3>Basic Details</h3>
+        <div class="flex-col">
+          <mat-form-field class="form-field" appearance="outline">
+            <mat-label>Name</mat-label>
+            <input matInput formControlName="name" />
+            <mat-error *ngIf="basicDetails.get('name')?.hasError('required')">
+              name is required
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="form-field" appearance="outline">
+            <mat-label>Username</mat-label>
+            <input matInput formControlName="username" />
+            <mat-error
+              *ngIf="basicDetails.get('username')?.hasError('required')"
+            >
+              Username is required
+            </mat-error>
+          </mat-form-field>
+          <div
+            *ngIf="
+              basicDetails.get('username')?.touched &&
+              basicDetails.get('username')?.invalid
+            "
+          >
+            <small *ngIf="basicDetails.get('username')?.errors?.['required']"
+              >Username is required.</small
+            >
+            <small *ngIf="basicDetails.get('username')?.errors?.['minlength']"
+              >Minimum 4 characters required.</small
+            >
+            <small *ngIf="basicDetails.get('username')?.errors?.['maxlength']"
+              >Maximum 20 characters allowed.</small
+            >
+          </div>
+
+          <mat-form-field class="" appearance="outline">
+            <mat-label>Age</mat-label>
+            <input
+              matInput
+              type="number"
+              min="6"
+              max="20"
+              formControlName="age"
+            />
+          </mat-form-field>
+          <mat-error *ngIf="basicDetails.get('age')?.hasError('min')"
+            >Age must be at least 6.</mat-error
+          >
+          <mat-error *ngIf="basicDetails.get('age')?.hasError('max')"
+            >Age cannot exceed 20.</mat-error
+          >
+        </div>
+        <div class="flex space-end">
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </mat-step>
+
+      <mat-step>
+        <ng-template matStepLabel>Academic Info</ng-template>
+        <h3>Class</h3>
+        <mat-form-field class="" appearance="outline">
+          <mat-label>Class</mat-label>
+          <input
+            matInput
+            type="number"
+            min="1"
+            max="12"
+            formControlName="class"
+          />
+        </mat-form-field>
+        <mat-error *ngIf="basicDetails.get('class')?.hasError('min')"
+          >Class must be at least 1.</mat-error
+        >
+        <mat-error *ngIf="basicDetails.get('class')?.hasError('max')"
+          >Class cannot exceed 12.</mat-error
+        >
+
+        <h3>Marks</h3>
+        <div class="flex">
+          <mat-form-field class="" appearance="outline">
+            <mat-label>Maths</mat-label>
+            <input
+              matInput
+              type="number"
+              min="0"
+              max="100"
+              formControlName="maths"
+            />
+          </mat-form-field>
+          <mat-error *ngIf="basicDetails.get('maths')?.hasError('min')"
+            >Marks must be at least 0.</mat-error
+          >
+          <mat-error *ngIf="basicDetails.get('maths')?.hasError('max')"
+            >Marks cannot exceed 100.</mat-error
+          >
+
+          <mat-form-field class="" appearance="outline">
+            <mat-label>English</mat-label>
+            <input
+              matInput
+              type="number"
+              min="0"
+              max="100"
+              formControlName="english"
+            />
+          </mat-form-field>
+          <mat-error *ngIf="basicDetails.get('maths')?.hasError('min')"
+            >Marks must be at least 0.</mat-error
+          >
+          <mat-error *ngIf="basicDetails.get('maths')?.hasError('max')"
+            >Marks cannot exceed 100.</mat-error
+          >
+
+          <mat-form-field class="" appearance="outline">
+            <mat-label>Science</mat-label>
+            <input
+              matInput
+              type="number"
+              min="0"
+              max="100"
+              formControlName="science"
+            />
+          </mat-form-field>
+          <mat-error *ngIf="basicDetails.get('maths')?.hasError('min')"
+            >Marks must be at least 0.</mat-error
+          >
+          <mat-error *ngIf="basicDetails.get('maths')?.hasError('max')"
+            >Marks cannot exceed 100.</mat-error
+          >
+        </div>
+        @if(getTotalMarks() > 0){
+        <span>Total Marks: {{ getTotalMarks() }}</span>
+        }
+        <div class="flex space-between">
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </mat-step>
+
+      <mat-step>
+        <ng-template matStepLabel>Credentials</ng-template>
+        <div class="flex-col">
+          <h3>Lets set a password for your account</h3>
+          <mat-form-field class="form-field" appearance="outline">
+            <mat-label>Password</mat-label>
+            <input
+              matInput
+              [type]="hide() ? 'password' : 'text'"
+              formControlName="password"
+            />
+            <button
+              mat-icon-button
+              matSuffix
+              (click)="clickEvent($event)"
+              [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hide()"
+              type="button"
+            >
+              <mat-icon>{{
+                hide() ? "visibility_off" : "visibility"
+              }}</mat-icon>
+            </button>
+          </mat-form-field>
+          <mat-error
+            *ngIf="
+              basicDetails.get('password')?.touched &&
+              basicDetails.get('password')?.invalid
+            "
+          >
+            <small *ngIf="basicDetails.get('password')?.errors?.['required']"
+              >Password is required.</small
+            >
+            <small *ngIf="basicDetails.get('password')?.errors?.['minlength']"
+              >Minimum 6 characters required.</small
+            >
+            <small *ngIf="basicDetails.get('password')?.errors?.['pattern']"
+              >Password must include at least one letter and one number.</small
+            >
+          </mat-error>
+
+          <mat-form-field class="" appearance="outline">
+            <mat-label>Confirm Password</mat-label>
+            <input
+              matInput
+              [type]="hide() ? 'password' : 'text'"
+              formControlName="confirmPassword"
+            />
+            <button
+              mat-icon-button
+              matSuffix
+              (click)="clickEvent($event)"
+              [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hide()"
+              type="button"
+            >
+              <mat-icon>{{
+                hide() ? "visibility_off" : "visibility"
+              }}</mat-icon>
+            </button>
+          </mat-form-field>
+          <mat-error
+            *ngIf="
+              basicDetails.hasError('mismatch') &&
+              basicDetails.get('confirmPassword')?.touched
+            "
+          >
+            Passwords do not match.
+          </mat-error>
+        </div>
+        <div class="flex space-between">
+          <button mat-button matStepperPrevious>Back</button>
+        </div>
+      </mat-step>
+    </mat-stepper>
+
+    <app-button
+      [styles]="{
+        background: 'linear-gradient(to left, #061700)',
+        padding: '13px',
+        fontWeight: '600'
+      }"
+      [type]="'submit'"
+    >
+      Sign Up
+    </app-button>
+  </form>
+
+  <p class="signup">
+    Already have an account? <a [routerLink]="['/login']">Sign In</a>
+  </p>
+</app-auth>

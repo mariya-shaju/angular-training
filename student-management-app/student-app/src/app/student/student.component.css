@@ -1,0 +1,24 @@
+.table {
+    width: 1000%;
+    max-width: 900px;
+    margin: 0 auto;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-top: 50px;
+    border-radius: 8px;
+    border: 1px solid #2fccda;
+
+}
+ .action {
+     gap: 10px;
+     display: flex;
+     align-items: center;
+     justify-content: start;
+ }
+ .table-container{
+    background-color: aliceblue;
+    border: 1px solid #2fccda;
+    border-radius: 8px;
+ }
+
+

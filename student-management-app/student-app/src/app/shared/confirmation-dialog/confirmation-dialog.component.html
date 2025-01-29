@@ -1,0 +1,8 @@
+<h2 mat-dialog-title class="title">Delete User?</h2>
+<mat-dialog-content>
+    <p>Are you sure you want to delete this <b>{{ username }}</b> </p>
+</mat-dialog-content>
+<mat-dialog-actions >
+    <button class="button-cancel" mat-button (click)="onCancel()">Cancel</button>
+    <button class="button-confirm" mat-raised-button color="warn" (click)="onConfirm()">Confirm</button>
+</mat-dialog-actions>

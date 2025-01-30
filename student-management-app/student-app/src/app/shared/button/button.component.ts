@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ButtonClasses, ButtonVariants } from '../../types/button.types';
 
 @Component({
@@ -7,7 +7,7 @@ import { ButtonClasses, ButtonVariants } from '../../types/button.types';
   templateUrl: './button.component.html',
   styleUrl: './button.component.css',
 })
-export class ButtonComponent {
+export class ButtonComponent implements OnInit {
   @Input() variant: ButtonVariants = 'primary';
   @Input() classList: ButtonClasses[] = [];
   @Input() styles: object = {};
@@ -15,6 +15,10 @@ export class ButtonComponent {
   @Input() disabled: boolean = false;
   @Output() click= new EventEmitter<void>()
 
+
+  ngOnInit(): void {
+      console.log(this.disabled)
+  }
   handleclick(){
     this.click.emit()
   }

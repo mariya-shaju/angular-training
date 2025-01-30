@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { StudentsService } from './services/student.service';
 import { AuthService } from './services/auth.service';
-import { AppService } from './app.service';
+
 
 @Component({
   selector: 'app-root',
@@ -14,7 +14,7 @@ export class AppComponent implements OnInit {
   title = 'student-management';
 
   constructor(
-    private appService: AppService,
+
     private studentsService: StudentsService,
     private authService: AuthService
   ) {}
@@ -25,8 +25,5 @@ export class AppComponent implements OnInit {
     this.authService.initAuth(); // after collecting students, get authorization;
   }
 
-  isAuthRoute() {
-    const currentUrl = this.appService.getCurrentUrl();
-    return currentUrl == '/login' || currentUrl == '/signup';
-  }
+
 }

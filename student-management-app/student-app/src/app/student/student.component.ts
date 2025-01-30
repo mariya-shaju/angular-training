@@ -47,6 +47,7 @@ export class StudentComponent implements OnInit {
     }
   }
   openDeleteDialog(studentId: string,username:string): void {
+    console.log("first")
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       width: '400px',
       data: { id: studentId ,username: username },

@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, Inject } from '@angular/core';
 import {  MAT_DIALOG_DATA } from '@angular/material/dialog';
 import {
 
@@ -14,11 +14,10 @@ import { Student } from '../../types/student.types';
   imports: [
     MatDialogActions,
     MatDialogContent,
-
-
   ],
   templateUrl: './confirmation-dialog.component.html',
   styleUrl: './confirmation-dialog.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ConfirmationDialogComponent {
   studentId: string;

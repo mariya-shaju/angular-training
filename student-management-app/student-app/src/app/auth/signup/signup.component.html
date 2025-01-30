@@ -64,16 +64,19 @@
           <mat-error *ngIf="basicDetails.get('age')?.hasError('max')"
             >Age cannot exceed 20.</mat-error
           >
+          <mat-error *ngIf="basicDetails.get('age')?.hasError('pattern')">
+            Decimal numbers are not allowed. Please enter a whole number.
+          </mat-error>
         </div>
         <div class="flex space-end">
-          <button mat-button matStepperNext>Next</button>
+          <button mat-button matStepperNext type="button">Next</button>
         </div>
       </mat-step>
 
       <mat-step>
         <ng-template matStepLabel>Academic Info</ng-template>
         <h3>Class</h3>
-        <mat-form-field class="" appearance="outline">
+        <mat-form-field class="class" appearance="outline">
           <mat-label>Class</mat-label>
           <input
             matInput
@@ -89,10 +92,13 @@
         <mat-error *ngIf="basicDetails.get('class')?.hasError('max')"
           >Class cannot exceed 12.</mat-error
         >
+        <mat-error *ngIf="basicDetails.get('class')?.hasError('pattern')">
+          Decimal numbers are not allowed. Please enter a whole number.
+        </mat-error>
 
         <h3>Marks</h3>
         <div class="flex">
-          <mat-form-field class="" appearance="outline">
+          <mat-form-field class="maths" appearance="outline">
             <mat-label>Maths</mat-label>
             <input
               matInput
@@ -108,6 +114,9 @@
           <mat-error *ngIf="basicDetails.get('maths')?.hasError('max')"
             >Marks cannot exceed 100.</mat-error
           >
+          <mat-error *ngIf="basicDetails.get('maths')?.hasError('pattern')">
+            Decimal numbers are not allowed. Please enter a whole number.
+          </mat-error>
 
           <mat-form-field class="" appearance="outline">
             <mat-label>English</mat-label>
@@ -119,12 +128,15 @@
               formControlName="english"
             />
           </mat-form-field>
-          <mat-error *ngIf="basicDetails.get('maths')?.hasError('min')"
+          <mat-error *ngIf="basicDetails.get('english')?.hasError('min')"
             >Marks must be at least 0.</mat-error
           >
-          <mat-error *ngIf="basicDetails.get('maths')?.hasError('max')"
+          <mat-error *ngIf="basicDetails.get('english')?.hasError('max')"
             >Marks cannot exceed 100.</mat-error
           >
+          <mat-error *ngIf="basicDetails.get('english')?.hasError('pattern')">
+            Decimal numbers are not allowed. Please enter a whole number.
+          </mat-error>
 
           <mat-form-field class="" appearance="outline">
             <mat-label>Science</mat-label>
@@ -136,19 +148,22 @@
               formControlName="science"
             />
           </mat-form-field>
-          <mat-error *ngIf="basicDetails.get('maths')?.hasError('min')"
+          <mat-error *ngIf="basicDetails.get('science')?.hasError('min')"
             >Marks must be at least 0.</mat-error
           >
-          <mat-error *ngIf="basicDetails.get('maths')?.hasError('max')"
+          <mat-error *ngIf="basicDetails.get('science')?.hasError('max')"
             >Marks cannot exceed 100.</mat-error
           >
+          <mat-error *ngIf="basicDetails.get('science')?.hasError('pattern')">
+            Decimal numbers are not allowed. Please enter a whole number.
+          </mat-error>
         </div>
         @if(getTotalMarks() > 0){
         <span>Total Marks: {{ getTotalMarks() }}</span>
         }
         <div class="flex space-between">
-          <button mat-button matStepperPrevious>Back</button>
-          <button mat-button matStepperNext>Next</button>
+          <button mat-button matStepperPrevious type="button">Back</button>
+          <button mat-button matStepperNext type="button">Next</button>
         </div>
       </mat-step>
 
@@ -236,11 +251,12 @@
       }"
       [type]="'submit'"
     >
-      Sign Up
+      {{ buttonNameFunc() }}
     </app-button>
   </form>
-
+  @if(mode=='signup'){
   <p class="signup">
     Already have an account? <a [routerLink]="['/login']">Sign In</a>
   </p>
+  }
 </app-auth>

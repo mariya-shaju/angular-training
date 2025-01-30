@@ -1,12 +1,12 @@
-mat-dialog-content {
-  margin: 15px 0;
-}
-
 .title {
   font-size: 20px;
   font-weight: bold;
   color: #333;
   text-align: center;
+}
+.sub-title {
+  margin-bottom: 20px;
+  font-size: 15px;
 }
 
 mat-dialog-content {
@@ -24,13 +24,15 @@ mat-dialog-actions {
 .button-cancel {
   background-color: white;
   color: #0f0f0f;
-  border-radius: 5px;
+  /* border-radius: 5px; */
+  margin-bottom: 30px;
 }
 
 .button-confirm {
   background-color: #f44336;
   color: white;
-  border-radius: 5px;
+  /* border-radius: 5px; */
+  margin-bottom: 30px;
 }
 
 .button-cancel:hover {

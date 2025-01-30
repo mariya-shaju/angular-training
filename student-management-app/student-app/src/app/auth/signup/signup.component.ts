@@ -43,7 +43,9 @@ export class SignupComponent implements OnInit {
   ) {}
   studentId: string | null = null;
   isLinear = false;
+  buttonName="Sign Up"
   mode: string = 'signup'; // Default mode is signup
+
   ngOnInit() {
     this.studentId = this.route.snapshot.paramMap.get('id');
     this.route.data.subscribe((data) => {
@@ -67,6 +69,16 @@ export class SignupComponent implements OnInit {
       }
     }
   }
+  buttonNameFunc(): string | undefined {
+    if (this.mode === 'signup') {
+      return 'Sign Up';
+    } else if (this.mode === 'addStudent') {
+      return 'Add';
+    } else {
+      return 'Update';
+    }
+  }
+
   basicDetails = new FormGroup(
     {
       name: new FormControl('', Validators.required),
@@ -74,32 +86,38 @@ export class SignupComponent implements OnInit {
         Validators.required,
         Validators.min(6),
         Validators.max(20),
+        Validators.pattern('^[0-9]+$')
       ]),
 
       username: new FormControl('', [
         Validators.required,
         Validators.minLength(4),
         Validators.maxLength(20),
+
       ]),
       class: new FormControl('', [
         Validators.required,
         Validators.min(0),
         Validators.max(12),
+        Validators.pattern('^[0-9]+$')
       ]),
       maths: new FormControl('', [
         Validators.required,
         Validators.min(0),
         Validators.max(100),
+        Validators.pattern('^[0-9]+$')
       ]),
       english: new FormControl('', [
         Validators.required,
         Validators.min(0),
         Validators.max(100),
+        Validators.pattern('^[0-9]+$')
       ]),
       science: new FormControl('', [
         Validators.required,
         Validators.min(0),
         Validators.max(100),
+        Validators.pattern('^[0-9]+$')
       ]),
       password: new FormControl('', [
         Validators.required,
@@ -164,7 +182,7 @@ export class SignupComponent implements OnInit {
       duration: 3000,
       verticalPosition: 'top',
       horizontalPosition: 'center',
-      panelClass: [panelClass], 
+      panelClass: [panelClass],
     });
   }
 

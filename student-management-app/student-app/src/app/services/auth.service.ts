@@ -34,8 +34,7 @@ export class AuthService {
     const students = this.studentService.getAll();
     console.log('All students:', students); // Verify all students are fetched
 
-    const student = students.find(
-      (item) => item.username.toLowerCase() === username.toLowerCase()
+    const student = students.find((item) => item.username === username
     );
     console.log('Found student:', student); // Check if student is found
 
@@ -45,7 +44,7 @@ export class AuthService {
         this.localstorage.set('ID', student.id);
         console.log('Stored username in localStorage:', student.username);
         this._user = student;
-        this.router.navigate(['/students']);
+        // this.router.navigate(['/students']);
         return { success: true, message: 'Login Success' };
       } else {
         console.log('Password mismatch');

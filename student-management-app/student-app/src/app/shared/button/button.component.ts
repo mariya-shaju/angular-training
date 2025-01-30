@@ -7,7 +7,7 @@ import { ButtonClasses, ButtonVariants } from '../../types/button.types';
   templateUrl: './button.component.html',
   styleUrl: './button.component.css',
 })
-export class ButtonComponent implements OnInit {
+export class ButtonComponent  {
   @Input() variant: ButtonVariants = 'primary';
   @Input() classList: ButtonClasses[] = [];
   @Input() styles: object = {};
@@ -16,9 +16,7 @@ export class ButtonComponent implements OnInit {
   @Output() click= new EventEmitter<void>()
 
 
-  ngOnInit(): void {
-      console.log(this.disabled)
-  }
+
   handleclick(){
     this.click.emit()
   }

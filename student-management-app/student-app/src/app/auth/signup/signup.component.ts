@@ -62,7 +62,7 @@ export class SignupComponent implements OnInit {
           english: student.marks.english.toString(),
           science: student.marks.science.toString(),
           password: student.password,
-          confirmPassword: student.password, // Prefill confirm password
+          confirmPassword: student.password,
         });
       }
     }
@@ -164,7 +164,7 @@ export class SignupComponent implements OnInit {
       duration: 3000,
       verticalPosition: 'top',
       horizontalPosition: 'center',
-      panelClass: [panelClass], // Use different styles
+      panelClass: [panelClass], 
     });
   }
 

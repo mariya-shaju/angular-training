@@ -7,8 +7,9 @@ export class GradeTransformationPipe implements PipeTransform {
     let grade: string;
 
     if (value == 1) grade = `${value}st grade`;
-    else if (+value < 10) grade = `${value}nd grade`;
-    else grade = `${value}th grade`; 
+    else if (value==2)grade = `${value}nd grade`
+    else if (value==3)grade = `${value}rd grade`
+    else grade = `${value}th grade`;
     return grade;
   }
 }

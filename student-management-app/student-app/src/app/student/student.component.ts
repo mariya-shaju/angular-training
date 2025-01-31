@@ -4,7 +4,6 @@ import { MatTableModule } from '@angular/material/table';
 import { NavbarComponent } from '../shared/navbar/navbar.component';
 import { MarkStatusTransformationPipe } from '../pipes/mark.pipe';
 import { GradeTransformationPipe } from '../pipes/grade.pipe';
-import { ButtonComponent } from '../shared/button/button.component';
 import { LocalStorageService } from '../services/local-storage.service';
 import { STUDENTS_KEY, USER_KEY } from '../../consts';
 import { MatDialog } from '@angular/material/dialog';
@@ -17,10 +16,7 @@ import { Router } from '@angular/router';
     MatTableModule,
     NavbarComponent,
     MarkStatusTransformationPipe,
-    GradeTransformationPipe,
-    ButtonComponent,
-
-  ],
+    GradeTransformationPipe],
   templateUrl: './student.component.html',
   styleUrl: './student.component.css',
 })

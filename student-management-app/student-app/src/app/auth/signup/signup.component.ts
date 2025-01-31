@@ -78,6 +78,15 @@ export class SignupComponent implements OnInit {
       return 'Update';
     }
   }
+  titleFunc(): string | undefined {
+    if (this.mode === 'signup') {
+      return 'Get Started';
+    } else if (this.mode === 'addStudent') {
+      return 'Add New User';
+    } else {
+      return 'Edit Student Details';
+    }
+  }
 
   basicDetails = new FormGroup(
     {

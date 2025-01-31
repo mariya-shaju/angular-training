@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Student } from '../types/student.types';
 import { LocalStorageService } from './local-storage.service';
-import { USER_KEY } from '../../consts';
+import { ID, USER_KEY } from '../../consts';
 import { StudentsService } from './student.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -41,7 +41,7 @@ export class AuthService {
     if (student) {
       if (student.password === password) {
         this.localstorage.set(USER_KEY, student.username);
-        this.localstorage.set('ID', student.id);
+        this.localstorage.set(ID, student.id);
         console.log('Stored username in localStorage:', student.username);
         this._user = student;
         // this.router.navigate(['/students']);
@@ -84,7 +84,7 @@ export class AuthService {
     try {
       this._user = null;
       this.localstorage.set(USER_KEY, '');
-      this.localstorage.set('ID','')
+      this.localstorage.set(ID,'')
       this.showToast('Logged out successfully!', 'success');
       setTimeout(() => {
         this.router.navigate(['/login']);

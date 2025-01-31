@@ -28,10 +28,4 @@ export class AuthComponent  implements OnInit{
       return 'assets/images/edit.jpg';
     }
   }
-
-
-
-
-
-
 }

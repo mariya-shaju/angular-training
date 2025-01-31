@@ -18,20 +18,10 @@
         Username is required
       </mat-error>
     </mat-form-field>
-    <div
-      *ngIf="
-        loginDetails.get('username')?.touched &&
-        loginDetails.get('username')?.invalid
-      "
-    >
-      <small *ngIf="loginDetails.get('username')?.errors?.['required']"
-        >Username is required.</small
-      >
-      <small *ngIf="loginDetails.get('username')?.errors?.['minlength']"
-        >Minimum 4 characters required.</small
-      >
-      <small *ngIf="loginDetails.get('username')?.errors?.['maxlength']"
-        >Maximum 20 characters allowed.</small
+   <div
+      *ngIf="loginDetails.get('username')?.touched &&loginDetails.get('username')?.invalid">
+      <mat-error *ngIf="loginDetails.get('username')?.errors?.['minlength']">Minimum 4 characters required.</mat-error>
+      <mat-error *ngIf="loginDetails.get('username')?.errors?.['maxlength']">Maximum 20 characters allowed.</mat-error
       >
     </div>
 
@@ -71,9 +61,7 @@
       Login
     </app-button>
   </form>
-  <!-- <div *ngIf="errorMessage" class="response-errorMessage" class="error">
-    {{ errorMessage }}
-  </div> -->
+
   <!-- Signup Link -->
   <p class="signup">
     Don't have an account? <a [routerLink]="['/signup']">Sign Up</a>

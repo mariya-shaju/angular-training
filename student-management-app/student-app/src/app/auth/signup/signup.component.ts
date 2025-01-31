@@ -43,7 +43,7 @@ export class SignupComponent implements OnInit {
   ) {}
   studentId: string | null = null;
   isLinear = false;
-  buttonName="Sign Up"
+  buttonName = 'Sign Up';
   mode: string = 'signup'; // Default mode is signup
 
   ngOnInit() {
@@ -78,6 +78,16 @@ export class SignupComponent implements OnInit {
       return 'Update';
     }
   }
+  titleFunc(): string | undefined {
+    if (this.mode === 'signup') {
+      return 'Get Started';
+    } else if (this.mode === 'addStudent') {
+      return 'Add New User';
+    } else {
+      return 'Edit Student Details';
+    }
+  }
+ 
 
   basicDetails = new FormGroup(
     {
@@ -86,38 +96,37 @@ export class SignupComponent implements OnInit {
         Validators.required,
         Validators.min(6),
         Validators.max(20),
-        Validators.pattern('^[0-9]+$')
+        Validators.pattern('^[0-9]+$'),
       ]),
 
       username: new FormControl('', [
         Validators.required,
         Validators.minLength(4),
         Validators.maxLength(20),
-
       ]),
       class: new FormControl('', [
         Validators.required,
         Validators.min(0),
         Validators.max(12),
-        Validators.pattern('^[0-9]+$')
+        Validators.pattern('^[0-9]+$'),
       ]),
       maths: new FormControl('', [
         Validators.required,
         Validators.min(0),
         Validators.max(100),
-        Validators.pattern('^[0-9]+$')
+        Validators.pattern('^[0-9]+$'),
       ]),
       english: new FormControl('', [
         Validators.required,
         Validators.min(0),
         Validators.max(100),
-        Validators.pattern('^[0-9]+$')
+        Validators.pattern('^[0-9]+$'),
       ]),
       science: new FormControl('', [
         Validators.required,
         Validators.min(0),
         Validators.max(100),
-        Validators.pattern('^[0-9]+$')
+        Validators.pattern('^[0-9]+$'),
       ]),
       password: new FormControl('', [
         Validators.required,
@@ -173,10 +182,16 @@ export class SignupComponent implements OnInit {
       }
     } catch (error) {
       console.error('Error during signup:', error);
-      this.showToast('An unexpected error occurred. Please try again.', 'error');
+      this.showToast(
+        'An unexpected error occurred. Please try again.',
+        'error'
+      );
     }
   }
-  showToast(message: string, type: 'success' | 'error' | 'warning' = 'success') {
+  showToast(
+    message: string,
+    type: 'success' | 'error' | 'warning' = 'success'
+  ) {
     let panelClass = type === 'success' ? 'success-snackbar' : 'error-snackbar';
     this.snackBar.open(message, 'Close', {
       duration: 3000,
@@ -200,5 +215,4 @@ export class SignupComponent implements OnInit {
     this.hide.set(!this.hide());
     event.stopPropagation();
   }
-
 }

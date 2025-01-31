@@ -57,6 +57,7 @@ export class AuthService {
   }
 
   getLoggedInUser(): Student | null {
+    console.log(this._user)
     return this._user; // Return the currently logged-in user
   }
 

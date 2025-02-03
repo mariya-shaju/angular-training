@@ -11,7 +11,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   providedIn: 'root',
 })
 export class AuthService {
-  _user: Student | null = null;
+
 
   constructor(
     private studentService: StudentsService,
@@ -24,7 +24,7 @@ export class AuthService {
     const value = this.localstorage.get(USER_KEY);
     const students = this.studentService.getAll();
     const student = students.find((item) => item.username == value);
-    this._user = student ? student : null;
+    this.studentService.setCurrentuser(student ? student : null)
   }
 
   login(
@@ -43,7 +43,7 @@ export class AuthService {
         this.localstorage.set(USER_KEY, student.username);
         this.localstorage.set(ID, student.id);
         console.log('Stored username in localStorage:', student.username);
-        this._user = student;
+        this.studentService.setCurrentuser(student)
         // this.router.navigate(['/students']);
         return { success: true, message: 'Login Success' };
       } else {
@@ -57,17 +57,17 @@ export class AuthService {
   }
 
   getLoggedInUser(): Student | null {
-    console.log(this._user)
-    return this._user; // Return the currently logged-in user
+
+    return this.studentService.getCurrentuser(); // Return the currently logged-in user
   }
 
   authorize(): { success: boolean; message: string } {
-    if (!this._user) {
+    if (!this.studentService.getCurrentuser()) {
       const authorization = this.localstorage.get(USER_KEY);
       if (authorization) {
         const student = this.studentService.findByUsername(authorization);
         if (student) {
-          this._user = student;
+          this.studentService.setCurrentuser(student)
           this.router.navigate(['/students']);
           return { success: true, message: 'Login Success' };
         } else {
@@ -82,7 +82,7 @@ export class AuthService {
 
   logout() {
     try {
-      this._user = null;
+      this.studentService.setCurrentuser(null)
       this.localstorage.set(USER_KEY, '');
       this.localstorage.set(ID,'')
       this.showToast('Logged out successfully!', 'success');

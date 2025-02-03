@@ -6,7 +6,7 @@ export const studentsList: Student[] = [
     id: '1',
 
     username: 'jjjj',
-    password: 'j1',
+    password: 'jjj',
     name: 'John Doe',
     age: 16,
     class: 10,

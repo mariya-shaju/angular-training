@@ -1,13 +1,18 @@
+<ng-container *ngIf="mode === 'addStudent' || mode === 'editStudent'">
+  <app-navbar></app-navbar>
+</ng-container>
+
 <app-auth>
   <div class="signup">
     <img src="/assets/images/logo.jpg" alt="logo" class="logo" />
     <div class="signup-details">
-      <h2 class="title">{{ titleFunc()}}</h2>
+      <h2 class="title">{{ titleFunc() }}</h2>
       <p class="sub-title">
         Welcome to <b>SMS</b>, your seamless education management solution
       </p>
     </div>
   </div>
+
   <form class="signup-form" [formGroup]="basicDetails" (ngSubmit)="onSubmit()">
     <mat-stepper [linear]="isLinear" #stepper>
       <mat-step>
@@ -17,55 +22,24 @@
           <mat-form-field class="form-field" appearance="outline">
             <mat-label>Name</mat-label>
             <input matInput formControlName="name" />
-            <mat-error *ngIf="basicDetails.get('name')?.hasError('required')">
-              name is required
-            </mat-error>
-          </mat-form-field>
+            </mat-form-field>
+            
 
           <mat-form-field class="form-field" appearance="outline">
             <mat-label>Username</mat-label>
             <input matInput formControlName="username" />
-            <mat-error
-              *ngIf="basicDetails.get('username')?.hasError('required')"
-            >
-              Username is required
-            </mat-error>
-          </mat-form-field>
-          <div
-            *ngIf="
-              basicDetails.get('username')?.touched &&
-              basicDetails.get('username')?.invalid
-            "
-          >
-            <small *ngIf="basicDetails.get('username')?.errors?.['required']"
-              >Username is required.</small
-            >
-            <small *ngIf="basicDetails.get('username')?.errors?.['minlength']"
-              >Minimum 4 characters required.</small
-            >
-            <small *ngIf="basicDetails.get('username')?.errors?.['maxlength']"
-              >Maximum 20 characters allowed.</small
-            >
-          </div>
+            </mat-form-field>
+          <mat-error *ngIf="getErrror('username')">
+            {{ getErrror("username") }}
+          </mat-error>
 
           <mat-form-field class="" appearance="outline">
             <mat-label>Age</mat-label>
-            <input
-              matInput
-              type="number"
-              min="6"
-              max="20"
-              formControlName="age"
+            <input matInput type="number" formControlName="age"
             />
           </mat-form-field>
-          <mat-error *ngIf="basicDetails.get('age')?.hasError('min')"
-            >Age must be at least 6.</mat-error
-          >
-          <mat-error *ngIf="basicDetails.get('age')?.hasError('max')"
-            >Age cannot exceed 20.</mat-error
-          >
-          <mat-error *ngIf="basicDetails.get('age')?.hasError('pattern')">
-            Decimal numbers are not allowed. Please enter a whole number.
+          <mat-error *ngIf="getErrror('age')">
+            {{ getErrror("age") }}
           </mat-error>
         </div>
         <div class="flex space-end">
@@ -78,85 +52,45 @@
         <h3>Class</h3>
         <mat-form-field class="class" appearance="outline">
           <mat-label>Class</mat-label>
-          <input
-            matInput
-            type="number"
-            min="1"
-            max="12"
-            formControlName="class"
+          <input matInput type="number"formControlName="class"
           />
         </mat-form-field>
-        <mat-error *ngIf="basicDetails.get('class')?.hasError('min')"
-          >Class must be at least 1.</mat-error
-        >
-        <mat-error *ngIf="basicDetails.get('class')?.hasError('max')"
-          >Class cannot exceed 12.</mat-error
-        >
-        <mat-error *ngIf="basicDetails.get('class')?.hasError('pattern')">
-          Decimal numbers are not allowed. Please enter a whole number.
+        <mat-error *ngIf="getErrror('class')">
+          {{ getErrror("class") }}
         </mat-error>
+
 
         <h3>Marks</h3>
         <div class="flex">
-          <mat-form-field class="maths" appearance="outline">
+          <div><mat-form-field class="maths" appearance="outline">
             <mat-label>Maths</mat-label>
-            <input
-              matInput
-              type="number"
-              min="0"
-              max="100"
-              formControlName="maths"
-            />
+            <input matInput type="number" formControlName="maths" />
           </mat-form-field>
-          <mat-error *ngIf="basicDetails.get('maths')?.hasError('min')"
-            >Marks must be at least 0.</mat-error
-          >
-          <mat-error *ngIf="basicDetails.get('maths')?.hasError('max')"
-            >Marks cannot exceed 100.</mat-error
-          >
-          <mat-error *ngIf="basicDetails.get('maths')?.hasError('pattern')">
-            Decimal numbers are not allowed. Please enter a whole number.
-          </mat-error>
+          <mat-error *ngIf="getErrror('maths')">
+            {{ getErrror("maths") }}
+          </mat-error></div>
 
-          <mat-form-field class="" appearance="outline">
-            <mat-label>English</mat-label>
-            <input
-              matInput
-              type="number"
-              min="0"
-              max="100"
-              formControlName="english"
-            />
-          </mat-form-field>
-          <mat-error *ngIf="basicDetails.get('english')?.hasError('min')"
-            >Marks must be at least 0.</mat-error
-          >
-          <mat-error *ngIf="basicDetails.get('english')?.hasError('max')"
-            >Marks cannot exceed 100.</mat-error
-          >
-          <mat-error *ngIf="basicDetails.get('english')?.hasError('pattern')">
-            Decimal numbers are not allowed. Please enter a whole number.
-          </mat-error>
 
-          <mat-form-field class="" appearance="outline">
-            <mat-label>Science</mat-label>
-            <input
-              matInput
-              type="number"
-              min="0"
-              max="100"
-              formControlName="science"
-            />
-          </mat-form-field>
-          <mat-error *ngIf="basicDetails.get('science')?.hasError('min')"
-            >Marks must be at least 0.</mat-error
-          >
-          <mat-error *ngIf="basicDetails.get('science')?.hasError('max')"
-            >Marks cannot exceed 100.</mat-error
-          >
-          <mat-error *ngIf="basicDetails.get('science')?.hasError('pattern')">
-            Decimal numbers are not allowed. Please enter a whole number.
-          </mat-error>
+          <div>
+            <mat-form-field class="" appearance="outline">
+              <mat-label>English</mat-label>
+              <input matInput type="number" formControlName="english"/>
+            </mat-form-field>
+            <mat-error *ngIf="getErrror('english')">
+              {{ getErrror("english") }}
+            </mat-error>
+          </div>
+          <div>
+            <mat-form-field class="" appearance="outline">
+              <mat-label>Science</mat-label>
+              <input matInput type="number" formControlName="science"/>
+            </mat-form-field>
+            <mat-error *ngIf="getErrror('science')">
+              {{ getErrror("science") }}
+            </mat-error>
+          </div>
+
+
         </div>
         @if(getTotalMarks() > 0){
         <span>Total Marks: {{ getTotalMarks() }}</span>
@@ -191,21 +125,8 @@
               }}</mat-icon>
             </button>
           </mat-form-field>
-          <mat-error
-            *ngIf="
-              basicDetails.get('password')?.touched &&
-              basicDetails.get('password')?.invalid
-            "
-          >
-            <small *ngIf="basicDetails.get('password')?.errors?.['required']"
-              >Password is required.</small
-            >
-            <small *ngIf="basicDetails.get('password')?.errors?.['minlength']"
-              >Minimum 6 characters required.</small
-            >
-            <small *ngIf="basicDetails.get('password')?.errors?.['pattern']"
-              >Password must include at least one letter and one number.</small
-            >
+          <mat-error *ngIf="getErrror('password')">
+            {{ getErrror("password") }}
           </mat-error>
 
           <mat-form-field class="" appearance="outline">
@@ -228,14 +149,10 @@
               }}</mat-icon>
             </button>
           </mat-form-field>
-          <mat-error
-            *ngIf="
-              basicDetails.hasError('mismatch') &&
-              basicDetails.get('confirmPassword')?.touched
-            "
-          >
-            Passwords do not match.
+          <mat-error *ngIf="getErrror('confirmPassword')">
+            {{ getErrror("confirmPassword") }}
           </mat-error>
+
         </div>
         <div class="flex space-between">
           <button mat-button matStepperPrevious>Back</button>

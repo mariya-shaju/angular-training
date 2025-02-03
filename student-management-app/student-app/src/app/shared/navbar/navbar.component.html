@@ -1,42 +1,50 @@
 <nav class="nav">
-    <div class="nav__main">
-        <!-- Logo -->
-        <a [routerLink]="['/']" routerLinkActive="router-link-active" class="nav__logo">
-            <h1>SMS</h1>
+  <div class="nav__main">
+    <!-- Logo -->
+    <a
+      [routerLink]="['/']"
+      routerLinkActive="router-link-active"
+      class="nav__logo"
+    >
+      <h1>SMS</h1>
+    </a>
+
+    <!-- Navigation Items -->
+    <ul class="nav__items">
+      <!-- Dashboard -->
+      <li class="nav__items-item">
+        <a [routerLink]="['/']" routerLinkActive="router-link-active">
+          <app-button [variant]="'secondary'">
+            <img src="/assets/icons/dashboard.svg" width="25" />
+            <span>Dashboard</span>
+          </app-button>
         </a>
-
-        <!-- Navigation Items -->
-        <ul class="nav__items">
-            <!-- Dashboard -->
-            <li class="nav__items-item">
-                <a [routerLink]="['/']" routerLinkActive="router-link-active">
-                    <app-button [variant]="'secondary'">
-                        <img src="/assets/icons/dashboard.svg" width="20" />
-                        <span>Dashboard</span>
-                    </app-button>
-                </a>
-            </li>
-            <!-- Add New -->
-            <li class="nav__items-item">
-                <a [routerLink]="['/add-new-student']" routerLinkActive="router-link-active">
-                    <app-button [variant]="'secondary'">
-                        <img src="/assets/icons/add.svg" width="20" />
-                        <span>Add New</span>
-                    </app-button>
-                </a>
-            </li>
-        </ul>
-    </div>
-
-    <!-- User Details -->
-    <ul class="nav__userDetails">
-        <li class="nav__userDetails-name">
-            Hi, <h2>{{ user?.name }}</h2>
-        </li>
-        <li class="nav__userDetails-logout">
-            <a [routerLink]="['/login']" routerLinkActive="router-link-active">
-                <app-button (click)="logout()">Logout </app-button>
-            </a>
-        </li>
+      </li>
+      <!-- Add New -->
+      <li class="nav__items-item">
+        <a
+          [routerLink]="['/add-new-student']"
+          routerLinkActive="router-link-active"
+        >
+          <app-button [variant]="'secondary'">
+            <img src="/assets/icons/add.svg" width="25" />
+            <span>Add New</span>
+          </app-button>
+        </a>
+      </li>
     </ul>
+  </div>
+
+  <!-- User Details -->
+  <ul class="nav__userDetails">
+    <li class="nav__userDetails-name">
+      Hi,
+      <h2>{{ user?.name }}</h2>
+    </li>
+    <li class="nav__userDetails-logout">
+      <a [routerLink]="['/login']" routerLinkActive="router-link-active">
+        <app-button class="button" (click)="logout()">Logout </app-button>
+      </a>
+    </li>
+  </ul>
 </nav>

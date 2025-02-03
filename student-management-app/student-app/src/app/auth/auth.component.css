@@ -1,6 +1,7 @@
 .auth {
   display: flex;
-  height: 100vh;
+  height: calc(100vh-92px);
+ 
 }
 .auth-image-container {
   flex: 1;
@@ -8,7 +9,7 @@
   align-items: center;
   justify-content: center;
   object-fit: cover;
-  padding: 50px;
+  padding: 30px;
 }
 .auth-image-container img {
   max-width: 100%;
@@ -16,7 +17,7 @@
 }
 .auth-form-container {
   flex: 1;
-  padding: 30px;
+  padding: 10px;
   display: flex;
   justify-content: center;
   align-items: center;

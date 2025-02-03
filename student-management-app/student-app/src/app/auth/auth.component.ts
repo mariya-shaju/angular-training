@@ -17,6 +17,7 @@ export class AuthComponent  implements OnInit{
     this.route.data.subscribe((data) => {
       this.mode = data['mode'] || 'signup';
     });
+    
   }
 
   imageFunc(): string | undefined {

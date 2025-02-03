@@ -14,15 +14,13 @@
     <mat-form-field class="form-field" appearance="outline">
       <mat-label>Username</mat-label>
       <input matInput formControlName="username" />
-      <mat-error *ngIf="loginDetails.get('username')?.hasError('required')">
-        Username is required
-      </mat-error>
-    </mat-form-field>
+     </mat-form-field>
    <div
       *ngIf="loginDetails.get('username')?.touched &&loginDetails.get('username')?.invalid">
+      <mat-error *ngIf="loginDetails.get('username')?.hasError('required')">
+        Username is required </mat-error>
       <mat-error *ngIf="loginDetails.get('username')?.errors?.['minlength']">Minimum 4 characters required.</mat-error>
-      <mat-error *ngIf="loginDetails.get('username')?.errors?.['maxlength']">Maximum 20 characters allowed.</mat-error
-      >
+
     </div>
 
     <!-- Password Field -->
@@ -46,6 +44,7 @@
       <mat-error *ngIf="loginDetails.get('password')?.hasError('required')">
         Password is required
       </mat-error>
+      <mat-error *ngIf="loginDetails.get('password')?.errors?.['minlength']">Minimum 6 characters required.</mat-error>
     </mat-form-field>
 
     <!-- Submit Button -->

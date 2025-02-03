@@ -43,11 +43,10 @@ export class LoginComponent {
   loginDetails = new FormGroup({
     username: new FormControl('', [
       Validators.required,
-      Validators.minLength(4),
-      Validators.maxLength(20),
+     
     ]),
 
-    password: new FormControl('', Validators.required),
+    password: new FormControl('',[ Validators.required]),
   });
 
   hide = signal(true);

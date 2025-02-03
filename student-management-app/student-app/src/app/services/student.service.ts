@@ -10,7 +10,7 @@ import { studentsList } from '../../student.data';
 })
 export class StudentsService {
   _students: Student[] = [];
-
+  _user: Student | null = null;
   constructor(private localstorage: LocalStorageService) {}
 
   initStudents() {
@@ -26,12 +26,17 @@ export class StudentsService {
       console.log('Loaded students from localStorage:', this._students);
     }
   }
-
+setCurrentuser(user:Student | null){
+  this._user=user
+}
   findByUsername(username: string): Student | null {
     const student = this._students.find(
       (student) => student.username == username
     );
     return student || null;
+  }
+  getCurrentuser(){
+    return this._user
   }
 
   getAll(): Student[] {
@@ -57,9 +62,10 @@ export class StudentsService {
   update(id: string, updatedStudent: Student): void {
     const index = this._students.findIndex((student) => student.id === id);
     if (index !== -1) {
+      this._user =updatedStudent
       this._students[index] = updatedStudent;
       this.localstorage.set(STUDENTS_KEY, JSON.stringify(this._students));
     }
   }
- 
+
 }

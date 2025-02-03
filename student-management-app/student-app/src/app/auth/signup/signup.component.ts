@@ -15,6 +15,8 @@ import { v4 as uuidv4 } from 'uuid';
 import { AuthService } from '../../services/auth.service';
 import { StudentsService } from '../../services/student.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { NavbarComponent } from "../../shared/navbar/navbar.component";
+import { errorMessages } from './consts';
 
 @Component({
   selector: 'app-signup',
@@ -29,7 +31,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     MatStepperModule,
     ButtonComponent,
     RouterLink,
-  ],
+    NavbarComponent
+],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.css',
 })
@@ -42,7 +45,7 @@ export class SignupComponent implements OnInit {
     private snackBar: MatSnackBar
   ) {}
   studentId: string | null = null;
-  isLinear = false;
+  isLinear = true;
   buttonName="Sign Up"
   mode: string = 'signup'; // Default mode is signup
 
@@ -133,7 +136,7 @@ export class SignupComponent implements OnInit {
         Validators.minLength(6),
         Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*?&]{6,}$/),
       ]),
-      confirmPassword: new FormControl('', Validators.required),
+      confirmPassword: new FormControl('',[Validators.required] ),
     },
     { validators: this.matchPasswords() }
   );
@@ -146,6 +149,7 @@ export class SignupComponent implements OnInit {
     };
   }
   onSubmit() {
+    console.log(this.basicDetails.controls)
     if (!this.basicDetails.valid) {
       this.showToast('Please fill in all required fields correctly.', 'error');
       return;
@@ -208,6 +212,18 @@ export class SignupComponent implements OnInit {
   clickEvent(event: MouseEvent) {
     this.hide.set(!this.hide());
     event.stopPropagation();
+  }
+  getErrror(key:string){
+    const keyErrors = this.basicDetails.get(key)?.errors
+   console.log(this.basicDetails)
+
+    const messages = Object.keys(keyErrors || {}).map(k=>
+       errorMessages[key][k]
+    )
+    if(this.basicDetails.errors&&this.basicDetails.errors['mismatch'] && key=='confirmPassword'){
+      return 'password not match'
+    }
+    return messages.length ? messages[0] : null
   }
 
 }

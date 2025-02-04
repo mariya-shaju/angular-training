@@ -6,7 +6,7 @@
   <div class="signup">
     <img src="/assets/images/logo.jpg" alt="logo" class="logo" />
     <div class="signup-details">
-      <h2 class="title">{{ titleFunc() }}</h2>
+      <h2 class="title">{{ mode | title }}</h2>
       <p class="sub-title">
         Welcome to <b>SMS</b>, your seamless education management solution
       </p>
@@ -23,7 +23,9 @@
             <mat-label>Name</mat-label>
             <input matInput formControlName="name" />
             </mat-form-field>
-            
+            <mat-error *ngIf="getErrror('name')">
+              {{ getErrror("name") }}
+            </mat-error>
 
           <mat-form-field class="form-field" appearance="outline">
             <mat-label>Username</mat-label>
@@ -168,7 +170,7 @@
       }"
       [type]="'submit'"
     >
-      {{ buttonNameFunc() }}
+    {{ mode | button}}
     </app-button>
   </form>
   @if(mode=='signup'){

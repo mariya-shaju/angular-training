@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { StudentsService } from './services/student.service';
-import { AuthService } from './services/auth.service';
+import { StudentsService } from './services/students.service';
+
+// import { AuthService } from './services/auth.service';
 
 
 @Component({
@@ -16,14 +17,12 @@ export class AppComponent implements OnInit {
   constructor(
 
     private studentsService: StudentsService,
-    private authService: AuthService
+
   ) {}
 
   ngOnInit(): void {
-    // fetch all data from db
-    this.studentsService.initStudents(); // get students first, then only can collect authenticated user
-    this.authService.initAuth(); // after collecting students, get authorization;
-  }
+  this.studentsService.initStudents();}
+
 
 
 }

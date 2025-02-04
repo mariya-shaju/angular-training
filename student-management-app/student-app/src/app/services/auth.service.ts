@@ -1,30 +1,25 @@
 import { Injectable } from '@angular/core';
-
 import { Router } from '@angular/router';
 import { Student } from '../types/student.types';
-import { LocalStorageService } from './local-storage.service';
-import { ID, USER_KEY } from '../../consts';
-import { StudentsService } from './student.service';
+import { StudentsService } from './students.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-
-
   constructor(
     private studentService: StudentsService,
-    private localstorage: LocalStorageService,
-    private router: Router,private snackBar: MatSnackBar
-
+    private router: Router,
+    private snackBar: MatSnackBar
   ) {}
 
-  initAuth() {
-    const value = this.localstorage.get(USER_KEY);
-    const students = this.studentService.getAll();
-    const student = students.find((item) => item.username == value);
-    this.studentService.setCurrentuser(student ? student : null)
+  initAuth(): void {
+    // Check if there is a logged-in user set in StudentsService
+    const currentUser = this.studentService.getCurrentuser();
+    if (!currentUser) {
+      this.router.navigate(['/login']);
+    }
   }
 
   login(
@@ -32,74 +27,69 @@ export class AuthService {
     password: string
   ): { success: boolean; message: string } {
     const students = this.studentService.getAll();
-    console.log('All students:', students); // Verify all students are fetched
 
-    const student = students.find((item) => item.username === username
-    );
-    console.log('Found student:', student); // Check if student is found
+    const student = students.find((item) => item.username === username);
 
     if (student) {
       if (student.password === password) {
-        this.localstorage.set(USER_KEY, student.username);
-        this.localstorage.set(ID, student.id);
-        console.log('Stored username in localStorage:', student.username);
-        this.studentService.setCurrentuser(student)
-        // this.router.navigate(['/students']);
+        localStorage.setItem('userId', student.id.toString());
+        localStorage.setItem('username', student.username);
         return { success: true, message: 'Login Success' };
       } else {
-        console.log('Password mismatch');
+        this.showToast('Password not matching', 'error');
         return { success: false, message: 'Password not matching' };
       }
     }
 
-    console.log('Student not found');
+    this.showToast('Student not found', 'error');
     return { success: false, message: 'Student not found' };
   }
 
-  getLoggedInUser(): Student | null {
+  getLoggedInUser(): Student |null {
+    const username = localStorage.getItem('username');
+    const userid = localStorage.getItem('userId');
 
-    return this.studentService.getCurrentuser(); // Return the currently logged-in user
-  }
+    if (username && userid) {
+     const user = this.studentService.getById(userid)
+        return user;
+    } else {
+
+        return  null
+    }
+}
+
 
   authorize(): { success: boolean; message: string } {
-    if (!this.studentService.getCurrentuser()) {
-      const authorization = this.localstorage.get(USER_KEY);
-      if (authorization) {
-        const student = this.studentService.findByUsername(authorization);
-        if (student) {
-          this.studentService.setCurrentuser(student)
-          this.router.navigate(['/students']);
-          return { success: true, message: 'Login Success' };
-        } else {
-          this.router.navigate(['/login']);
-          return { success: false, message: 'Student not found' };
-        }
-      }
-      return { success: true, message: 'Login Success' };
+    const currentUser = this.studentService.getCurrentuser();
+
+    if (!currentUser) {
+      this.router.navigate(['/login']);
+      return { success: false, message: 'Unauthorized access. Redirecting to login.' };
     }
-    return { success: true, message: 'Login Success' };
+
+    return { success: true, message: 'Authorized successfully' };
   }
 
-  logout() {
+  logout(): void {
     try {
-      this.studentService.setCurrentuser(null)
-      this.localstorage.set(USER_KEY, '');
-      this.localstorage.set(ID,'')
+      this.studentService.setCurrentuser(null); // Clear the user from StudentsService
       this.showToast('Logged out successfully!', 'success');
       setTimeout(() => {
         this.router.navigate(['/login']);
       }, 1000);
-
     } catch (error) {
       console.error('Logout failed:', error);
       this.showToast('Logout failed! Please try again.', 'error');
     }
   }
-  register(student: Student) {
-    this.studentService.add(student);
+
+  register(student: Student): void {
+    this.studentService.add(student); // Add the student to the list
+    this.showToast('Registration successful!', 'success');
     console.log('New student added:', student);
   }
-  private showToast(message: string, type: 'success' | 'error') {
+
+  private showToast(message: string, type: 'success' | 'error'): void {
     this.snackBar.open(message, 'Close', {
       duration: 3000,
       verticalPosition: 'top',
@@ -107,7 +97,5 @@ export class AuthService {
       panelClass: type === 'success' ? 'success-snackbar' : 'error-snackbar',
     });
   }
-
 }
-
 

@@ -1,8 +1,8 @@
 <div class="auth">
-    <div class="auth-image-container">
-      <img [src]="imageFunc()" alt="Auth Image" />
-    </div>
-    <div class="auth-form-container">
-        <ng-content></ng-content>
-    </div>
+  <div class="auth-image-container">
+    <img [src]="mode | image" alt="Auth Image" />
+  </div>
+  <div class="auth-form-container">
+    <ng-content></ng-content>
+  </div>
 </div>

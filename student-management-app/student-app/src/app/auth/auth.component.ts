@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ImagePipe as ImagePipe } from "../pipes/image.pipe";
 
 @Component({
   selector: 'app-auth',
-  imports: [],
+  imports: [ImagePipe],
   templateUrl: './auth.component.html',
   styleUrl: './auth.component.css',
 })
@@ -17,16 +18,8 @@ export class AuthComponent  implements OnInit{
     this.route.data.subscribe((data) => {
       this.mode = data['mode'] || 'signup';
     });
-    
+
   }
 
-  imageFunc(): string | undefined {
-    if (this.mode === 'signup') {
-      return 'assets/images/authimage.jpg';
-    } else if (this.mode === 'addStudent') {
-      return 'assets/images/add.jpg';
-    } else {
-      return 'assets/images/edit.jpg';
-    }
-  }
+
 }

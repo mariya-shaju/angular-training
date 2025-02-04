@@ -4,11 +4,11 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { NavbarComponent } from '../shared/navbar/navbar.component';
 import { MarkStatusTransformationPipe } from '../pipes/mark.pipe';
 import { GradeTransformationPipe } from '../pipes/grade.pipe';
-import { LocalStorageService } from '../services/local-storage.service';
+// import { LocalStorageService } from '../services/local-storage.service';
 import { STUDENTS_KEY, USER_KEY } from '../../consts';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../shared/confirmation-dialog/confirmation-dialog.component';
-import { StudentsService } from '../services/student.service';
+import { StudentsService } from '../services/students.service';
 import { Router } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
 import { catchError, map, startWith, switchMap } from 'rxjs';
@@ -42,20 +42,17 @@ export class StudentComponent implements OnInit {
   dataSourceFiltered: Student[] = []
 
   constructor(
-    private localStorageService: LocalStorageService,
+    // private localStorageService: LocalStorageService,
     public dialog: MatDialog,
     private studentservice: StudentsService,
     private router: Router
   ) {}
 
   ngOnInit(): void {
-    const studentsData = this.localStorageService.get(STUDENTS_KEY);
-    if (studentsData) {
-      this.dataSource = JSON.parse(studentsData);
+    this.dataSource = this.studentservice.getAll()
       this.resultsLength = this.dataSource.length
       this.dataSourceFiltered = this.dataSource.slice(this.pageNumber*this.itemsPerPage,( this.pageNumber*this.itemsPerPage) + this.itemsPerPage)
 
-    }
   }
 
 
@@ -74,7 +71,7 @@ export class StudentComponent implements OnInit {
   }
 
   deleteStudent(studentId: string, username: string): void {
-    const loggedInUserId = this.localStorageService.get(USER_KEY); // Get logged-in user ID
+    const loggedInUserId = localStorage.getItem('id')// Get logged-in user ID
 
     this.studentservice.deleteById(studentId);
 
@@ -84,7 +81,7 @@ export class StudentComponent implements OnInit {
     this.dataSourceFiltered =updatedStudents.slice(this.pageNumber*this.itemsPerPage,( this.pageNumber*this.itemsPerPage) + this.itemsPerPage)
 
     if (username === loggedInUserId) {
-      this.localStorageService.remove(USER_KEY);
+      localStorage.removeItem('userId');
       this.router.navigate(['/login']);
     }
   }
@@ -99,3 +96,8 @@ export class StudentComponent implements OnInit {
     this.dataSourceFiltered = this.dataSource.slice(this.pageNumber*this.itemsPerPage,( this.pageNumber*this.itemsPerPage) + this.itemsPerPage)
   }
 }
+
+
+
+
+

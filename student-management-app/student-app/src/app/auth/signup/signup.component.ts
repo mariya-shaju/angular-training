@@ -13,10 +13,12 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Student } from '../../types/student.types';
 import { v4 as uuidv4 } from 'uuid';
 import { AuthService } from '../../services/auth.service';
-import { StudentsService } from '../../services/student.service';
+import { StudentsService } from '../../services/students.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { NavbarComponent } from "../../shared/navbar/navbar.component";
 import { errorMessages } from './consts';
+import { TitlePipe } from "../../pipes/title.pipe";
+import { ButtonPipe } from "../../pipes/buttonname.pipe";
 
 @Component({
   selector: 'app-signup',
@@ -31,7 +33,9 @@ import { errorMessages } from './consts';
     MatStepperModule,
     ButtonComponent,
     RouterLink,
-    NavbarComponent
+    NavbarComponent,
+    TitlePipe,
+    ButtonPipe
 ],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.css',
@@ -50,6 +54,7 @@ export class SignupComponent implements OnInit {
   mode: string = 'signup'; // Default mode is signup
 
   ngOnInit() {
+    console.log("first")
     this.studentId = this.route.snapshot.paramMap.get('id');
     this.route.data.subscribe((data) => {
       this.mode = data['mode'] || 'signup';
@@ -72,24 +77,8 @@ export class SignupComponent implements OnInit {
       }
     }
   }
-  buttonNameFunc(): string | undefined {
-    if (this.mode === 'signup') {
-      return 'Sign Up';
-    } else if (this.mode === 'addStudent') {
-      return 'Add';
-    } else {
-      return 'Update';
-    }
-  }
-  titleFunc(): string | undefined {
-    if (this.mode === 'signup') {
-      return 'Get Started';
-    } else if (this.mode === 'addStudent') {
-      return 'Add New User';
-    } else {
-      return 'Edit Student Details';
-    }
-  }
+
+
 
   basicDetails = new FormGroup(
     {
@@ -215,7 +204,7 @@ export class SignupComponent implements OnInit {
   }
   getErrror(key:string){
     const keyErrors = this.basicDetails.get(key)?.errors
-   console.log(this.basicDetails)
+
 
     const messages = Object.keys(keyErrors || {}).map(k=>
        errorMessages[key][k]
